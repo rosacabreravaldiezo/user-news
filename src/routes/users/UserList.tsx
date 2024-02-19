@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Avatar, Box, Button, ButtonGroup, Grid, LinearProgress, Alert } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FeedIcon from '@mui/icons-material/Feed';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { UserInterface, getUsers, ResponseData, deleteUser } from "../../models";
+import { useTranslation } from "react-i18next";
 
 export async function loader() {
   const users = await getUsers();
@@ -13,7 +14,7 @@ export async function loader() {
 }
 
 const UserList: React.FC = () => {
-  const navigate = useNavigate();
+  const { t } = useTranslation();
   const { users } = useLoaderData() as { users: UserInterface[] };
   const [isVisible, setIsVisible] = useState(false);
   const [alertData, setAlertData] = useState<ResponseData<null>>({ success: '', message: '', data: null });
@@ -28,17 +29,17 @@ const UserList: React.FC = () => {
     },
     {
       field: 'firstName',
-      headerName: 'First Name',
+      headerName: t('first_name'),
       flex: 1
     },
     {
       field: 'lastName',
-      headerName: 'Last Name',
+      headerName: t('last_name'),
       flex: 1
     },
     {
       field: 'id',
-      headerName: 'Action',
+      headerName: t('action'),
       width: 200,
       renderCell: (params: GridRenderCellParams<any, string>) => (
         <>
@@ -66,7 +67,7 @@ const UserList: React.FC = () => {
     setIsVisible(true);
     const response = await deleteUser(parseInt(id));
     setIsVisible(false);
-    setAlertData({ success: response.success, message: response.message, data: null });
+    setAlertData(response);
 
     setTimeout(() => {
       window.location.reload();
@@ -79,12 +80,12 @@ const UserList: React.FC = () => {
         <Grid item xs={11}></Grid>
         <Grid item xs={1}>
           <Link to="/user">
-            <Button variant="outlined">New</Button>
+            <Button variant="outlined">{t('new')}</Button>
           </Link>
         </Grid>
         <Grid item xs={12}>
           {isVisible && <Box sx={{ width: '100%' }}><LinearProgress /></Box>}
-          {alertData.success !== '' && <Alert variant="filled"> {alertData.message}</Alert>}
+          {alertData.success !== '' && <Alert variant="filled"> {alertData.message} {t('redirect')}</Alert>}
         </Grid>
       </Grid>
 
@@ -99,6 +100,7 @@ const UserList: React.FC = () => {
           }
         }}
         pageSizeOptions={[5, 10, 15]}
+        getRowId={(row: any) => row.id}
       />
     </Box>
   );

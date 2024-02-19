@@ -70,8 +70,7 @@ export async function getDetailNews(newsId: string):Promise<News> {
 
 export const getDateFormat = (published_at: string): string => {
     const date = new Date(published_at);
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const monthIndex = date.getMonth();
     const day = date.getDate();
     const year = date.getFullYear();

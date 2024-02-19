@@ -4,6 +4,7 @@ import { getDetailNews, News, getDateFormat } from "../../models";
 import type { Params } from "react-router-dom";
 import { Avatar, Button, CardMedia, Typography, Card, CardHeader, CardContent} from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useTranslation } from "react-i18next";
 
 
 export async function loader({ params }: { params: Params<"newsId"> }) {
@@ -13,6 +14,7 @@ export async function loader({ params }: { params: Params<"newsId"> }) {
 
 const NewsDetail = () => {
   const nav = useNavigate();
+  const { t } = useTranslation();
   const { news } = useLoaderData() as { news: News };
 
   return (
@@ -20,7 +22,7 @@ const NewsDetail = () => {
       <Grid container spacing={2}>
         <Grid item xs={10}></Grid>
         <Grid item xs={2}>
-          <Button variant="outlined" onClick={() => nav(-1)}>&larr; Go back</Button>
+          <Button variant="outlined" onClick={() => nav(-1)}>&larr; {t('go_back')}</Button>
         </Grid>
       </Grid>
 

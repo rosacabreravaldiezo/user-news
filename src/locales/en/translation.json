@@ -1,0 +1,19 @@
+{
+    "go_back": "Go back",
+    "edit": "Edit",
+    "delete": "Delete",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "phone_number": "Phone Number",
+    "news": "News",
+    "users": "Users",
+    "home": "Home",
+    "cancel": "Cancel",
+    "new": "New",
+    "save": "Save",
+    "action": "Action",
+    "redirect": "The system will redirect you in a few seconds.",
+    "oops": "Oops!",
+    "sorry_unexcepted": "Sorry, an unexpected error has occurred"
+}

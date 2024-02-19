@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from "react-i18next";
 import { Grid } from '@mui/material';
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { UserInterface, ResponseData, getUser, deleteUser } from "../../models";
@@ -15,6 +16,7 @@ export async function loader({ params }: { params: Params<"userId"> }) {
 
 const UserDetail = () => {
   const nav = useNavigate();
+  const { t } = useTranslation();
   const { user } = useLoaderData() as { user: UserInterface };
   const [isVisible, setIsVisible] = useState(false);
   const [alertData, setAlertData] = useState<ResponseData<null>>({ success: '', message: '', data: null });
@@ -23,7 +25,7 @@ const UserDetail = () => {
     setIsVisible(true);
     const response = await deleteUser(user.id!);
     setIsVisible(false);
-    setAlertData({ success: response.success, message: response.message, data: null });
+    setAlertData(response);
 
     setTimeout(() => nav('/users'), 1000);
   };
@@ -33,11 +35,11 @@ const UserDetail = () => {
       <Grid container spacing={2}>
         <Grid item xs={10}></Grid>
         <Grid item xs={2}>
-          <Button variant="outlined" onClick={() => nav(-1)}>&larr; Go back</Button>
+          <Button variant="outlined" onClick={() => nav(-1)}>&larr; {t('go_back')}</Button>
         </Grid>
         <Grid item xs={12}>
           {isVisible && <Box sx={{ width: '100%' }}><LinearProgress /></Box>}
-          {alertData.success !== '' && <Alert variant="filled"> {alertData.message}</Alert>}
+          {alertData.success !== '' && <Alert variant="filled"> {alertData.message} {t('redirect')}</Alert>}
         </Grid>
       </Grid>
       
@@ -72,9 +74,9 @@ const UserDetail = () => {
         </CardContent>
         <CardActions>
           <Button size="small">
-            <Link to={`/users/${user.id}/edit`}>Edit</Link>
+            <Link to={`/users/${user.id}/edit`}>{t('edit')}</Link>
           </Button>
-          <Button size="small" type="button" onClick={handleDelete}>Delete</Button>
+          <Button size="small" type="button" onClick={handleDelete}>{t('delete')}</Button>
         </CardActions>
       </Card>
     </>

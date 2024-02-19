@@ -3,6 +3,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { ImageList, ImageListItem, IconButton, ImageListItemBar } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { News, getNews } from "../../models";
+import { useTranslation } from "react-i18next";
 
 export async function loader() {
   const news = await getNews();
@@ -11,6 +12,7 @@ export async function loader() {
 
 const NewsList: React.FC = () => {
   const { news } = useLoaderData() as { news: News[] };
+  const { t } = useTranslation();
 
 
   return (

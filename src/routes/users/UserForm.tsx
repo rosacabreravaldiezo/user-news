@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { updateUser, UserInterface, ResponseData } from "../../models";
 import { TextField, Box, Paper, Button, Stack, LinearProgress, Alert } from '@mui/material';
+import { useTranslation } from "react-i18next";
 
 const UserForm: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useLoaderData() as { user: UserInterface };
   const [formData, setFormData] = useState<UserInterface>(user);
   const [isVisible, setIsVisible] = useState(false);
@@ -19,7 +21,7 @@ const UserForm: React.FC = () => {
     setIsVisible(true);
     const response = await updateUser(user.id!, formData);
     setIsVisible(false);
-    setAlertData({ success: response.success, message: response.message, data: null });
+    setAlertData(response);
 
     setTimeout(() => navigate('/users'), 1000);
   };
@@ -27,7 +29,7 @@ const UserForm: React.FC = () => {
   return (
     <>
       {isVisible && <Box sx={{ width: '100%' }}><LinearProgress /></Box>}
-      {alertData.success !== '' && <Alert variant="filled"> {alertData.message}</Alert>}
+      {alertData.success !== '' && <Alert variant="filled"> {alertData.message} {t('redirect')}</Alert>}
       <br />
       <Paper elevation={2} style={{ padding: '10px' }}>
         <Box
@@ -41,7 +43,7 @@ const UserForm: React.FC = () => {
             <TextField
               required
               id="outlined-required"
-              label="First Name"
+              label={t('first_name')}
               type="text"
               name="firstName"
               value={formData.firstName}
@@ -50,7 +52,7 @@ const UserForm: React.FC = () => {
             <TextField
               required
               id="outlined-required"
-              label="Last Name"
+              label={t('last_name')}
               type="text"
               name="lastName"
               value={formData.lastName}
@@ -60,7 +62,7 @@ const UserForm: React.FC = () => {
           <TextField
             required
             id="outlined-required"
-            label="Email"
+            label={t('email')}
             type="email"
             name="email"
             value={formData.email}
@@ -70,7 +72,7 @@ const UserForm: React.FC = () => {
           <TextField
             required
             id="outlined-required"
-            label="Phone Number"
+            label={t('phone_number')}
             type="text"
             name="phoneNumber"
             value={formData.phoneNumber}
@@ -79,10 +81,10 @@ const UserForm: React.FC = () => {
           />
           <Stack direction="row" spacing={2}>
             <Button variant="contained" color="success" type="button" onClick={handleSend}>
-              Save
+              {t('save')}
             </Button>
             <Button variant="outlined" color="error" type="button" onClick={() => navigate(-1)}>
-              Cancel
+              {t('cancel')}
             </Button>
           </Stack>
         </Box>

@@ -2,10 +2,13 @@ import { Outlet, Link} from "react-router-dom";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { AppBar, Typography, Button } from '@mui/material';
+import { useTranslation } from "react-i18next";
 
-const navItems = [{ name: 'Home', url: '/' }, { name: 'Users', url: '/users' }, { name: 'News', url: '/news' }];
+
 
 const Root = () => {
+  const { t } = useTranslation();
+  const navItems = [{ name: t('home'), url: '/' }, { name: t('users'), url: '/users' }, { name: t('news'), url: '/news' }];
 
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -1,0 +1,19 @@
+{
+    "go_back": "Ir atras",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "first_name": "Nombre(s)",
+    "last_name": "Apellido(s)",
+    "email": "Correo electrónico",
+    "phone_number": "Teléfono",
+    "news": "Noticias",
+    "users": "Usuarios",
+    "home": "Inicio",
+    "cancel": "Cancelar",
+    "new": "Nuevo",
+    "save": "Guardar",
+    "action": "Acciones",
+    "redirect": "El sistema lo redireccionara en unos segundos",
+    "oops": "Ups!",
+    "sorry_unexcepted": "Lo sentimos, se ha producido un error inesperado"
+}
